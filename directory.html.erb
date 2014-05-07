@@ -1,0 +1,16 @@
+<h1>American Nyckelharpa Players and/or ANA Members</h1>
+<strong>Please Note:</strong> In an effort to help deter e-mail harvesters, e-mails are not listed as links. You will need to copy and paste the address, and replace (at) with @, and (dot) with a period.
+
+Also please note that not all players and members are listed. To be listed, a person must be an ANA member and have requested to be listed. If you don't see your name and wish to be listed, please contact the membership coordinator at membership(at)nyckelharpa(dot)org. If you have questions about your membership or need to update the information listed here, please also contact the membership coordinator at membership(at)nyckelharpa(dot)org. Thank you!
+<% states.keys.sort.each do |state_name| %><% players = states[state_name]%><h2><%= state_name %></h2>
+<ul><% players.sort{|x, y| x['last_name'] <=> y['last_name']}.each do |player| %>
+  <li><strong><%= player['last_name'] %>, <%= player['first_name'] %></strong> <%= player['email'] %></li><% end %>
+</ul><% end %>
+<h2>Canada</h2>
+<ul><% canada.sort{|x, y| x['last_name'] <=> y['last_name']}.each do |player| %>
+  <li><strong><%= player['last_name'] %>, <%= player['first_name'] %></strong> <%= player['email'] %> (<%= player['location'] %>) </li><% end %>
+</ul>
+<h2>Outside the US and Canada</h2>
+<ul><% other.sort{|x, y| x['last_name'] <=> y['last_name']}.each do |player| %>
+  <li><strong><%= player['last_name'] %>, <%= player['first_name'] %></strong> <%= player['email'] %> (<%= player['location'] %>) </li><% end %>
+</ul>
