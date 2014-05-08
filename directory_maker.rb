@@ -2,9 +2,11 @@ require "csv"
 require "erb"
 require_relative "./state_names"
 
-states = {}
-canada = []
-other = []
+input_filename=ARGV[0]
+output_filename=ARGV[1]
+
+puts "Reading from #{input_filename}"
+puts "Will write to #{output_filename}"
 
 def email_redact(email)
   unless email
@@ -18,6 +20,10 @@ def email_redact(email)
     #TODO:  this doesn't deal gracefully with people with dots in their usernames
     #TODO:  make all emails downcase
 end
+
+states = {}
+canada = []
+other = []
 
 CSV.foreach("/home/ruthie/Desktop/ANA/players-4-30-14.csv") do |parts|
   #opt in for directory
@@ -53,6 +59,5 @@ end
 template_filename="/home/ruthie/Desktop/ANA/directory.html.erb"
 template = ERB.new(File.read(template_filename))
 
-output_filename="/home/ruthie/Desktop/ANA/new_directory.html"
 output_file = File.open(output_filename, 'w')
 output_file.write(template.result)
