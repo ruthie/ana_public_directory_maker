@@ -21,13 +21,21 @@ def email_redact(email)
     #TODO:  make all emails downcase
 end
 
+def location(parts)
+  state = parts[9]
+  city = parts[8]
+  return "#{city}, #{state}"
+end
+
 states = {}
 canada = []
 other = []
 
-CSV.foreach("/home/ruthie/Desktop/ANA/players-4-30-14.csv") do |parts|
+CSV.foreach(input_filename) do |parts|
   #opt in for directory
   if !["yes", "Y", "y", "on"].include?(parts[14])
+    next
+  elsif parts[3].to_i < 2013
     next
   end
 
@@ -35,7 +43,8 @@ CSV.foreach("/home/ruthie/Desktop/ANA/players-4-30-14.csv") do |parts|
 
   #list nyckelharpa.org email if it exists, otherwise other email
   state = parts[9]
-  player['email'] = email_redact(parts[1]) || email_redact(parts[0])
+  player['email'] = email_redact(parts[1]) || email_redact(parts[0]) || location(parts)
+
   player['first_name'] = parts[4].strip
   player['last_name'] = parts[5].strip
 
