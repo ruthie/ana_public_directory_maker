@@ -65,7 +65,7 @@ CSV.foreach(input_filename) do |parts|
   end
 end
 
-template_filename="/home/ruthie/Desktop/ANA/directory.html.erb"
+template_filename="directory.html.erb"
 template = ERB.new(File.read(template_filename))
 
 output_file = File.open(output_filename, 'w')
