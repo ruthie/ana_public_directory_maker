@@ -22,8 +22,8 @@ def email_redact(email)
 end
 
 def location(parts)
-  state = parts[9]
-  city = parts[8]
+  state = parts[8]
+  city = parts[7]
   return "#{city}, #{state}"
 end
 
@@ -33,20 +33,20 @@ other = []
 
 CSV.foreach(input_filename) do |parts|
   #opt in for directory
-  if !["yes", "Y", "y", "on"].include?(parts[14])
+  if !["yes", "Y", "y", "on"].include?(parts[13])
     next
-  elsif parts[3].to_i < 2013
+  elsif parts[2].to_i < 2014
     next
   end
 
   player = {}
 
   #list nyckelharpa.org email if it exists, otherwise other email
-  state = parts[9]
+  state = parts[8]
   player['email'] = email_redact(parts[1]) || email_redact(parts[0]) || location(parts)
 
-  player['first_name'] = parts[4].strip
-  player['last_name'] = parts[5].strip
+  player['first_name'] = parts[3].strip
+  player['last_name'] = parts[4].strip
 
   if state != nil
     state.strip!
