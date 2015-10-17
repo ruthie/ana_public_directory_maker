@@ -9,9 +9,10 @@ puts "Reading from #{input_filename}"
 puts "Will write to #{output_filename}"
 
 def email_redact(email)
-  unless email
+  unless email and email.include? "@"
     return nil
   end
+
   email.downcase.
     sub("hyperlink:", "").
     sub("mailto:", "").
