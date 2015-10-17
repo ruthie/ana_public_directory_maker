@@ -51,18 +51,21 @@ CSV.foreach(input_filename) do |parts|
 
   if state != nil
     state.strip!
-
-    state_name = $state_abbr[state]
-    if state_name
-      states[state_name] = [] unless states[state_name]
-      states[state_name] << player     
-    elsif province_name = $province_abbr[state]
-      player['location'] = province_name
-      canada << player
-    else
-      player['location'] = state
-      other << player      
-    end
+  else
+    state = "Outside US & Canada"
+  end
+    
+  state_name = $state_abbr[state]
+  if state_name
+    states[state_name] = [] unless states[state_name]
+    states[state_name] << player     
+  elsif province_name = $province_abbr[state]
+    player['location'] = province_name
+    canada << player
+  else
+    country = parts[10].capitalize
+    player['location'] = country
+    other << player      
   end
 end
 
